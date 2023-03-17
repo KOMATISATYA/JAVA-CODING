@@ -1,7 +1,7 @@
 class Equals {
-    public static void main(String[] args)
+    public static void main(String[] args)               //== is used for reference comparision
     {
-        String s1 = "Satya";
+        String s1 = "Satya";                               //.equals() is used for content comparision
         String s2 = "Satya";
         String s3 =  new String("HELLO");
         System.out.println("Using ==");
