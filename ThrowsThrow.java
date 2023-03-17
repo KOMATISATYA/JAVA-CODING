@@ -1,7 +1,7 @@
 public class ThrowsThrow {  
       
-    public static int divideNum(int m, int n) throws ArithmeticException {  
-        int div = m / n;  
+    public static int divideNum(int m, int n) throws ArithmeticException {  // throws keyword is used give the responsibility of exception handling to the caller method
+        int div = m / n;                                                  
         return div;  
     }  
       
