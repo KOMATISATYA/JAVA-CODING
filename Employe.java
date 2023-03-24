@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-class EmployeeTest{
+class Employee{
     
 
     public static double salary;
@@ -13,16 +13,15 @@ class EmployeeTest{
     }
     public void insert(){
         try{
-            File file = new File("C:\\Users\\DELL\\demo1\\Employee.txt");
+            File file = new File("C:\\Users\\DELL\\demo1\\empdetails.txt");
             if(!file.exists()){
                 file.createNewFile();
             }
-                FileWriter f=new FileWriter("Employee.txt",true);
-                BufferedWriter bw=new BufferedWriter(f);
-                String str =" "+emp_id+" "+emp_name+" "+salary+" "+addr+"\n";
-                bw.write(str);
-                bw.flush();
-                bw.close();
+            FileOutputStream fos = new FileOutputStream(file,true);
+               String str =emp_id+" "+emp_name+" "+salary+" "+addr+"\n";
+                fos.write(str.getBytes());
+                fos.flush();
+                fos.close();
         
         }
         catch(IOException e){
@@ -30,22 +29,20 @@ class EmployeeTest{
         }
         System.out.println("record inserted");
     }
-    public void display(){
-       
+    public static String display(){
+                String filecontent = "";
                 FileInputStream f1;
                 try {
-                        f1 = new FileInputStream("C:\\Users\\DELL\\demo1\\Employee.txt");
+                        f1 = new FileInputStream("C:\\Users\\DELL\\demo1\\empdetails.txt");
                 
                 try {
-                         FileReader fr=new FileReader("Employee.txt");
-                         BufferedReader br=new BufferedReader(fr);
-                          String line=br.readLine();
-                        while(line!=null)
-                             {
-                             System.out.println(line);
-                              line=br.readLine();
-                               }
-  
+                        int i = f1.read();
+                        while(!(i ==-1)){
+                        char c = (char)i;
+                        System.out.print(c);
+                        filecontent = filecontent + c;
+                        i = f1.read();
+                        }
                 } 
                 
                 catch(IOException e){
@@ -55,13 +52,45 @@ class EmployeeTest{
                 catch (FileNotFoundException e) {
                         System.out.println("file not found");
                  }
+                 return filecontent;
                 
     }
-   
+    public static void removeRecord(File file, String empid) {
+                    String line ="";
+                    String empobj = "";
+                    String filecontent = display();
+                   
+                    try{
+
+                        Scanner sc1 = new Scanner(file);
+                        while(sc1.hasNextLine()){
+
+                                line = sc1.nextLine();
+                                if(line.startsWith(empid)){
+                                        empobj = empobj + line + "";
+                                } 
+                
+                        }
+                        
+                        FileOutputStream fos = new FileOutputStream(file);
+                        String finalcontent = filecontent.replace(empobj.trim(),"");
+                        fos.write(finalcontent.getBytes());
+                        fos.flush();
+                        fos.close();
+                        sc1.close();
+                        System.out.println("record "+ empobj + " deleted successfully");
+                    }
+                    catch(IOException ae){
+                    System.out.println(ae);
+                    }
+
+    }
+
 }
-class Employe extends EmployeeTest{
+
+class Employe extends Employee{
 	public static void main(String args[]){
-        EmployeeTest e = new EmployeeTest();
+        Employee e = new Employee();
         Scanner sc = new Scanner(System.in);
         int ch;
         do{
@@ -85,12 +114,15 @@ class Employe extends EmployeeTest{
 
                     break;
             case 2:
-                    e.display();
+                    display();
                     break;
             case 3:
+                   
                     String line ="";
+                    
+
                     try{
-                    File file = new File("C:\\Users\\DELL\\demo1\\Employee.txt");
+                    FileInputStream  file = new FileInputStream("C:\\Users\\DELL\\demo1\\empdetails.txt");
                     System.out.println("enter employee id");
                     emp_id = sc.next();
                     Scanner sc1 = new Scanner(file);
@@ -98,9 +130,12 @@ class Employe extends EmployeeTest{
                         line = sc1.nextLine();
                         if(line.startsWith(emp_id)){
                                 System.out.println(line);
+                              
                         } 
-                       
+                        
+                        
                     }
+                   
                     sc1.close();
                     }
                     catch(IOException ae){
@@ -108,14 +143,11 @@ class Employe extends EmployeeTest{
                     }
                     break;
             case 4:
+                File file = new File("C:\\Users\\DELL\\demo1\\empdetails.txt");
+                System.out.println("enter emp id to delete");
+                String emp_id = sc.next();
+                removeRecord(file,emp_id);
                 
-                File fo = new File("C:\\Users\\DELL\\demo1\\Employee.txt");
-                if(fo.delete()){
-                        System.out.println("file deleted");
-                }
-                else{
-                        System.out.println("error in deletion");
-                }
                    break;
             case 5:
                     System.exit(0);
@@ -127,4 +159,5 @@ class Employe extends EmployeeTest{
         sc.close();
     }
 
+       
 }
