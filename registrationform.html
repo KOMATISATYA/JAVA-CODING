@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="Regstyle.css">
+    <script src="Regjs.js"></script>
+   </head>
+<body>
+  <div class="clsbody">
+    <div class="title"><h3><u>Registration</u></h3></div>
+    <div class="content">
+      <form name="myform" method="post" required>
+        <div class="user-details">
+          <div class="in-box">
+            <p class="details">Full Name</p>
+            <input type="text" name="fname" placeholder="Enter your name" required>
+          </div>
+          <div class="in-box">
+            <p class="details">Username</p>
+            <input type="text" name="uname" placeholder="Enter your username" required>
+          </div>
+          <div class="in-box">
+            <p class="details">Email</p>
+            <input type="email" name="ename" placeholder="Enter your email" required>
+          </div>
+          <div class="in-box">
+            <p class="details">Phone Number</p>
+            <input type="text" name="pname" id="contact"  placeholder="Enter your number" required>
+          </div>
+          <div class="in-box">
+            <p class="details">Password</p>
+            <input type="password" name="pass" placeholder="Enter your password" required>
+          </div>
+          <div class="in-box">
+            <p class="details">Confirm Password</p>
+            <input type="password" name="pass1" placeholder="Confirm your password" required>
+          </div>
+        </div>
+        <p class="gender-title">Gender</p>
+        <div class="gender-details">
+          <input type="radio" name="gender" value="male" required>Male</input>
+          <input type="radio" name="gender" value="female">Female</input>
+          <input type="radio" name="gender" value="prefer not to say">Prefer not to say</input>
+        </div> 
+        <div class="button">
+          <input class="button1" type="submit" onClick="validate()" value="Register">
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
